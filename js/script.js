@@ -6,18 +6,22 @@ $(window).on("load", function() {
 		}
 });
 
-
-$('#searchButton').click(function() {
-	fetch('php/blabla.php', {
-			method: 'POST',
-			headers: {'Content-Type': 'application/json'},
+//I'm using the fetch API instead of $.ajax because I'm more familiar with it
+$('#searchButton').click(function() { 
+		fetch(`php/blabla.php`, {
+			method: "POST",
+			headers: {
+					'Content-Type': 'application/json',
+					'lat': $('#lat').val(),
+					'long': $('#long').val(),
+					'endpoint': $('#endpoint').val()
+			}/*,
 			body: JSON.stringify({
 				'lat': $('#lat').val(),
 				'long': $('#long').val(),
 				'endpoint': $('#endpoint').val()
-			})
+			})*/
 	})
-	.then(response => console.log(`Response: ${response.body}`))
-	.then(response => $('#results').val(response))
+	.then(data => $('#results').html(data))
 	.catch(error => console.error(error));
 });	
